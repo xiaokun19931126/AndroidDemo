@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xiaokun.xiusou.demo6">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--<uses-permission android:name="info.xiusou.receiver.RECEIVE"/>-->
+
+    <application
+        android:name=".Application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppBaseTheme">
+
+        <!--<service android:name="rexsee.service._Service"/>-->
+
+        <!--<receiver android:name="rexsee.core.receiver._Receiver">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.BOOT_COMPLETED"/>-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <receiver android:name=".Receiver.BootReceiver">
+
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".Receiver.MyReceiver">
+
+            <intent-filter>
+                <action android:name="xiusou" />
+            </intent-filter>
+
+        </receiver>
+
+        <activity android:name=".Ui.SplashActivity1">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.FirstActivity" />
+        <!--<activity android:name=".Activity.FirstActivity">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN"/>-->
+
+        <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity android:name=".Activity.MyWebActivity" />
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.ZakerNewsActivity" />
+        <activity android:name=".Activity.ZakerNewsListActivity" />
+        <activity android:name=".Activity.DutyDayActivity" />
+        <activity android:name=".Activity.FangZakerActivity" />
+        <activity android:name=".Activity.WebActivity" />
+        <activity android:name=".Activity.ViewPagerActivity" />
+        <activity android:name=".Activity.RWDemoActivity" />
+        <activity android:name=".Activity.WMActivity" />
+        <activity android:name=".Activity.PassWordActivity" />
+        <activity android:name=".Activity.sixteenToTenActivity" />
+        <activity android:name=".Activity.GuideHelperActivity" />
+        <activity android:name=".Activity.EventConflictActivity" />
+        <activity android:name=".Activity.TopFloatActivity" />
+        <activity android:name=".Activity.CustomViewActivity" />
+        <activity android:name=".Activity.LuckPanActivity" />
+        <activity android:name=".Activity.SmartTimeActivity" />
+        <activity android:name=".Activity.SearchViewActivity" />
+        <activity android:name=".Activity.Intent2Activity" />
+        <activity android:name=".Activity.HtmlActivity" />
+        <activity android:name=".Activity.DownLoadActivity" />
+        <activity android:name=".Activity.MyCollectionActivity" />
+        <activity android:name=".Activity.DownTaskActivity" />
+        <activity android:name=".Activity.HotUpdateActivity" />
+        <activity android:name=".Activity.TextViewActivity" />
+        <activity android:name=".Activity.NotifacationUpadateActivity" />
+        <activity android:name=".Activity.DialogActivity" />
+        <activity android:name=".Activity.ListLinearLayoutActivity" />
+
+        <service android:name=".Service.UpdateService" />
+    </application>
+
+</manifest>
