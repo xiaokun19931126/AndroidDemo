@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.xiaokun.xiusou.demo6.Application.MyApplication;
 import com.xiaokun.xiusou.demo6.Bean.TestData;
 import com.xiaokun.xiusou.demo6.CustomView.LinearLayoutAdapter;
 import com.xiaokun.xiusou.demo6.CustomView.ListLinearLayout;
@@ -30,6 +31,7 @@ import butterknife.OnClick;
 
 public class ListLinearLayoutActivity extends BaseActivity
 {
+    private static final String CLICK_POSITION = "click_position";
     @Bind(R.id.line_layout)
     ListLinearLayout lineLayout;
     @Bind(R.id.btn_refresh)
@@ -86,7 +88,16 @@ public class ListLinearLayoutActivity extends BaseActivity
     @OnClick(R.id.btn_refresh)
     public void onViewClicked()
     {
-        TestData testData = new Gson().fromJson(data, TestData.class);
+        MyApplication.mPref.putInt(CLICK_POSITION, -1);
+        TestData testData = new Gson().fromJson(data1, TestData.class);
+        List<TestData.DataBean> data = testData.getData();
+        adapter.setNewData(data);
+        lineLayout.setAdapter(adapter);
+    }
+
+    private void refresh()
+    {
+        TestData testData = new Gson().fromJson(data2, TestData.class);
         List<TestData.DataBean> data = testData.getData();
         adapter.setNewData(data);
         lineLayout.setAdapter(adapter);
@@ -105,12 +116,21 @@ public class ListLinearLayoutActivity extends BaseActivity
         {
             View view = View.inflate(AppUtils.getAppContext(), getmItemLayoutId(), null);
             TextView btn = (TextView) view.findViewById(R.id.text_view);
+//            View view = holder.getItemView();
+//            TextView btn = holder.getView(R.id.text_view);
             btn.setText(getData().get(position).getName());
+            int clickPosition = MyApplication.mPref.getInt(CLICK_POSITION, -1);
+            if (clickPosition != -1 && clickPosition == position)
+            {
+                view.setBackgroundColor(getResources().getColor(R.color.grey));
+            }
             view.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View view)
                 {
+                    MyApplication.mPref.putInt(CLICK_POSITION, position);
+                    refresh();
                     Toast.makeText(AppUtils.getAppContext(), "点击了" + position, Toast.LENGTH_SHORT).show();
                 }
             });

@@ -28,7 +28,7 @@ public class FirstActivity extends AppCompatActivity
             "登录模块", "16和10互转", "引导帮助案例", "事件冲突案例", "清空缓存", "顶部悬浮案例",
             "自定义View之芝麻信用", "自定义View之转盘", "自定义View之时钟", "自定义View之搜索",
             "app间跳转案例", "html赏析", "下载app测试", "我的收藏", "高价下载", "测试热更新", "textviewDemo",
-            "通知栏下载文件实时跟新进度", "loadview"};
+            "通知栏下载文件实时跟新进度", "loadview", "代替ListView的LinearLayout"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -127,7 +127,9 @@ public class FirstActivity extends AppCompatActivity
                         intent.setClass(FirstActivity.this, NotifacationUpadateActivity.class);
                         break;
                     case 24:
-//                        intent.setClass(FirstActivity.this, DialogActivity.class);
+                        intent.setClass(FirstActivity.this, DialogActivity.class);
+                        break;
+                    case 25:
                         intent.setClass(FirstActivity.this, ListLinearLayoutActivity.class);
                         break;
                 }

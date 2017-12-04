@@ -5,7 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.xiaokun.xiusou.demo6.R;
 
@@ -14,40 +14,40 @@ import com.xiaokun.xiusou.demo6.R;
  * dialog包装类
  */
 
-public class LoadingDialog
+public class LoadingProgressDialog
 {
 
-    private CircleRingView ringView;
+    private ProgressBar ringView;
     private Dialog dialog;
 
-    public LoadingDialog(Context context, String msg)
+    public LoadingProgressDialog(Context context, String msg)
     {
-        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view2, null);
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.dialog_view);
-        ringView = (CircleRingView) view.findViewById(R.id.lv_circularring);
-        TextView loadView = (TextView) view.findViewById(R.id.loading_text);
+        ringView = (ProgressBar) view.findViewById(R.id.lv_circularring);
+        GraduallyTextView loadView = (GraduallyTextView) view.findViewById(R.id.loading_text);
         loadView.setText(msg);
+        loadView.startLoading();
         dialog = new Dialog(context, R.style.loading_dialog);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(layout, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        ringView.startAnimation();
+//        ringView.startAnimation();
     }
 
     public void show()
     {
         dialog.show();
-
     }
 
-    public void hide()
-    {
-        if (dialog != null)
-        {
-            ringView.stopAnimation();
-            dialog.dismiss();
-            dialog = null;
-        }
-    }
+//    public void hide()
+//    {
+//        if (dialog != null)
+//        {
+//            ringView.stopAnimation();
+//            dialog.dismiss();
+//            dialog = null;
+//        }
+//    }
 }

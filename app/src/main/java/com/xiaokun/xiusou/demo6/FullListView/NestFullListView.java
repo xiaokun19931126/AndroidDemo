@@ -15,24 +15,29 @@ import java.util.List;
  * 邮箱：zhangxutong@imcoming.com
  * 时间： 2016/9/9.
  */
-public class NestFullListView extends LinearLayout {
+public class NestFullListView extends LinearLayout
+{
     private LayoutInflater mInflater;
     private List<NestFullViewHolder> mVHCahces;//缓存ViewHolder,按照add的顺序缓存，
 
-    public NestFullListView(Context context) {
+    public NestFullListView(Context context)
+    {
         this(context, null);
     }
 
-    public NestFullListView(Context context, AttributeSet attrs) {
+    public NestFullListView(Context context, AttributeSet attrs)
+    {
         this(context, attrs, 0);
     }
 
-    public NestFullListView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NestFullListView(Context context, AttributeSet attrs, int defStyleAttr)
+    {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
-    private void init(Context context) {
+    private void init(Context context)
+    {
         mInflater = LayoutInflater.from(context);
         mVHCahces = new ArrayList<NestFullViewHolder>();
         //annotate by zhangxutong 2016 09 23 for 让本控件能支持水平布局，项目的意外收获= =
@@ -47,15 +52,19 @@ public class NestFullListView extends LinearLayout {
      *
      * @param mAdapter
      */
-    public void setAdapter(NestFullListViewAdapter mAdapter) {
+    public void setAdapter(NestFullListViewAdapter mAdapter)
+    {
         this.mAdapter = mAdapter;
         updateUI();
     }
 
 
-    public void updateUI() {
-        if (null != mAdapter) {
-            if (null != mAdapter.getDatas() && !mAdapter.getDatas().isEmpty()) {
+    public void updateUI()
+    {
+        if (null != mAdapter)
+        {
+            if (null != mAdapter.getDatas() && !mAdapter.getDatas().isEmpty())
+            {
                 //数据源有数据
                 if (mAdapter.getDatas().size() > getChildCount() - getFooterCount())
                 {//数据源大于现有子View不清空
@@ -65,29 +74,36 @@ public class NestFullListView extends LinearLayout {
                     removeViews(mAdapter.getDatas().size(), getChildCount() - mAdapter.getDatas()
                             .size() - getFooterCount());
                     //删除View也清缓存
-                    while (mVHCahces.size() > mAdapter.getDatas().size()) {
+                    while (mVHCahces.size() > mAdapter.getDatas().size())
+                    {
                         mVHCahces.remove(mVHCahces.size() - 1);
                     }
                 }
-                for (int i = 0; i < mAdapter.getDatas().size(); i++) {
+                for (int i = 0; i < mAdapter.getDatas().size(); i++)
+                {
                     NestFullViewHolder holder;
-                    if (mVHCahces.size() - 1 >= i) {//说明有缓存，不用inflate，否则inflate
+                    if (mVHCahces.size() - 1 >= i)
+                    {//说明有缓存，不用inflate，否则inflate
                         holder = mVHCahces.get(i);
-                    } else {
+                    } else
+                    {
                         holder = new NestFullViewHolder(getContext(), mInflater.inflate(mAdapter
                                 .getItemLayoutId(), this, false));
                         mVHCahces.add(holder);//inflate 出来后 add进来缓存
                     }
                     mAdapter.onBind(i, holder);
                     //如果View没有父控件 添加
-                    if (null == holder.getConvertView().getParent()) {
+                    if (null == holder.getConvertView().getParent())
+                    {
                         this.addView(holder.getConvertView(), getChildCount() - getFooterCount());
                     }
                 }
-            } else {
+            } else
+            {
                 removeViews(0, getChildCount() - getFooterCount());//数据源没数据 清空视图
             }
-        } else {
+        } else
+        {
             removeViews(0, getChildCount() - getFooterCount());//适配器为空 清空视图
         }
     }
@@ -97,12 +113,15 @@ public class NestFullListView extends LinearLayout {
      */
     private List<View> mFooterViews;//暂时用存View，觉得可以不存。还没考虑好
 
-    public int getFooterCount() {
+    public int getFooterCount()
+    {
         return mFooterViews != null ? mFooterViews.size() : 0;
     }
 
-    public void addFooterView(View footer) {
-        if (null == mFooterViews) {
+    public void addFooterView(View footer)
+    {
+        if (null == mFooterViews)
+        {
             mFooterViews = new ArrayList<>();
         }
         mFooterViews.add(footer);
@@ -115,10 +134,13 @@ public class NestFullListView extends LinearLayout {
      * @param pos
      * @param footer
      */
-    public void setFooterView(int pos, View footer) {
-        if (null == mFooterViews || mFooterViews.size() <= pos) {
+    public void setFooterView(int pos, View footer)
+    {
+        if (null == mFooterViews || mFooterViews.size() <= pos)
+        {
             addFooterView(footer);
-        } else {
+        } else
+        {
             mFooterViews.set(pos, footer);
             //5 item 1 footer , pos 0, getchildcout =6, remove :
             int realPos = getChildCount() - getFooterCount() + pos;

@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <com.xiaokun.xiusou.demo6.CustomView.ListLinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/line_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:background="@color/red"
         android:orientation="vertical"/>
 
@@ -17,6 +17,7 @@
         android:id="@+id/btn_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:text="刷新"/>
 
 </LinearLayout>

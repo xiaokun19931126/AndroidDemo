@@ -879,4 +879,5 @@
     <dimen name="height_10dp">10dp</dimen>
     <dimen name="dimen_10dp">10dp</dimen>
     <dimen name="dimen_15dp">15dp</dimen>
+    <dimen name="dimen_90dp">90dp</dimen>
 </resources>

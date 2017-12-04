@@ -50,6 +50,8 @@ public class ListLinearLayout extends LinearLayout
      */
     private int itemHeight = DimenUtils.dpToPxInt(50);
 
+    private ViewHolder holder;
+
     public ListLinearLayout(Context context)
     {
         super(context);
@@ -62,8 +64,13 @@ public class ListLinearLayout extends LinearLayout
 
     public void setAdapter(LinearLayoutAdapter adapter)
     {
+        if (adapter == null)
+        {
+            return;
+        }
         this.mAdapter = adapter;
         setOrientation(oriention);
+        holder = adapter.getHolder();
         inflateView();
     }
 
@@ -122,7 +129,6 @@ public class ListLinearLayout extends LinearLayout
                     layoutParams.setMargins(rowSpacing, 0, 0, 0);
                 }
                 int position = i * mColumn + j;
-
                 View view = mAdapter.getView(position);
                 view.setLayoutParams(layoutParams);
                 linearLayout.addView(view);
@@ -138,7 +144,6 @@ public class ListLinearLayout extends LinearLayout
             int width = measureWidth(widthMeasureSpec);
             if (width > 0)
             {
-
                 MAX_WIDTH = width;
                 inflateView();
             }

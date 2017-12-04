@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import com.xiaokun.xiusou.demo6.CustomView.LoadingProgressDialog;
 import com.xiaokun.xiusou.demo6.R;
 import com.yuyh.library.view.progress.DonutProgress;
 
@@ -32,9 +33,10 @@ public class DialogActivity extends AppCompatActivity
         setContentView(R.layout.activity_dialog);
         ButterKnife.bind(this);
 
-
 //        LoadingDialog loadingDialog = new LoadingDialog(this, "玩命加载中...");
 //        loadingDialog.show();
+        LoadingProgressDialog loadingDialog = new LoadingProgressDialog(this, "玩命加载中...");
+        loadingDialog.show();
     }
 
     @OnClick(R.id.btn)
