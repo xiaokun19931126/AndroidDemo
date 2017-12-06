@@ -1,1 +1,1 @@
-include ':app', ':library', ':CommenLibrary'
+include ':app', ':library', ':CommenLibrary', ':ioc-annotation', ':ioc-processor', ':ioc'

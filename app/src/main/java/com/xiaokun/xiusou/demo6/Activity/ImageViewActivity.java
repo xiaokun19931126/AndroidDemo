@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.example.BindView;
+import com.xiaokun.ioc.ViewBinder;
 import com.xiaokun.xiusou.demo6.CustomView.AdImageViewVersion;
 import com.xiaokun.xiusou.demo6.R;
 import com.yuyh.library.Base.BaseActivity;
@@ -15,8 +17,6 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * @author xiaokun
  * @date 2017/12/6
@@ -24,8 +24,8 @@ import butterknife.Bind;
 
 public class ImageViewActivity extends BaseActivity
 {
-    @Bind(R.id.id_recyclerview)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.id_recyclerview)
+    public RecyclerView mRecyclerView;
 
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -50,7 +50,7 @@ public class ImageViewActivity extends BaseActivity
     @Override
     public void initView()
     {
-
+        ViewBinder.bind(this);
     }
 
     @Override

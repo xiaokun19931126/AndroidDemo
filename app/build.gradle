@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
@@ -67,4 +68,8 @@ dependencies {
     //fps监控
 //    compile 'jp.wasabeef:takt:1.0.5'
     compile 'com.zhy:base-rvadapter:3.0.3'
+
+    compile project(':ioc')
+    compile project(':ioc-annotation')
+    apt project(':ioc-processor')
 }
