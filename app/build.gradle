@@ -66,10 +66,13 @@ dependencies {
     compile 'io.flowup:android-sdk:1.0.0'
     testCompile 'io.flowup:android-sdk-no-op:1.0.0'
     //fps监控
-//    compile 'jp.wasabeef:takt:1.0.5'
-    compile 'com.zhy:base-rvadapter:3.0.3'
 
+    //    compile 'jp.wasabeef:takt:1.0.5'
+    compile 'com.zhy:base-rvadapter:3.0.3'
     compile project(':ioc')
     compile project(':ioc-annotation')
     apt project(':ioc-processor')
+    //android免root兼容所有版本ui调试工具
+    compile 'com.wanjian:sak:0.1.2.8'
+    compile project(':http-library')
 }

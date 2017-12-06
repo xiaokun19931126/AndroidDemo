@@ -3,6 +3,7 @@ package com.xiaokun.xiusou.demo6.Application;
 import android.app.Application;
 
 import com.socks.library.KLog;
+import com.wanjian.sak.SAK;
 import com.xiaokun.xiusou.demo6.BuildConfig;
 import com.xiaokun.xiusou.demo6.Utils.ACache;
 import com.yuyh.library.AppUtils;
@@ -35,6 +36,7 @@ public class MyApplication extends Application
         super.onCreate();
         AppUtils.init(this);
         KLog.init(BuildConfig.LOG_DEBUG, "xiaocaiwudi");
+        SAK.init(this);
         aCache = ACache.get(this);
         toastUtils = new ToastUtils();
         mPref = new PrefsUtils(this, "app_data");

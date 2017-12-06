@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/AndroidDemo.iml" filepath="$PROJECT_DIR$/AndroidDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/CommenLibrary/CommenLibrary.iml" filepath="$PROJECT_DIR$/CommenLibrary/CommenLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/http-library/http-library.iml" filepath="$PROJECT_DIR$/http-library/http-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/ioc/ioc.iml" filepath="$PROJECT_DIR$/ioc/ioc.iml" />
       <module fileurl="file://$PROJECT_DIR$/ioc-annotation/ioc-annotation.iml" filepath="$PROJECT_DIR$/ioc-annotation/ioc-annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/ioc-processor/ioc-processor.iml" filepath="$PROJECT_DIR$/ioc-processor/ioc-processor.iml" />
