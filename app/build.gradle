@@ -66,4 +66,5 @@ dependencies {
     testCompile 'io.flowup:android-sdk-no-op:1.0.0'
     //fps监控
 //    compile 'jp.wasabeef:takt:1.0.5'
+    compile 'com.zhy:base-rvadapter:3.0.3'
 }

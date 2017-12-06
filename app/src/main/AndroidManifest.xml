@@ -85,6 +85,7 @@
         <activity android:name=".Activity.NotifacationUpadateActivity" />
         <activity android:name=".Activity.DialogActivity" />
         <activity android:name=".Activity.ListLinearLayoutActivity" />
+        <activity android:name=".Activity.ImageViewActivity" />
 
         <service android:name=".Service.UpdateService" />
     </application>

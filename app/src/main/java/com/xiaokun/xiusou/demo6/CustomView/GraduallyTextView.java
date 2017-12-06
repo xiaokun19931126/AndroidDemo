@@ -102,9 +102,10 @@ public class GraduallyTextView extends AppCompatEditText
         mPaint.setColor(getCurrentTextColor());
         mPaint.setTextSize(getTextSize());
         setMinWidth(getWidth());
-        setText("");
-        setHint("");
+        setText("");//清空
+        setHint("");//清空
         valueAnimator.start();
+        //计算单个字的progress
         sigleDuration = 100f / textLength;
     }
 
@@ -137,12 +138,18 @@ public class GraduallyTextView extends AppCompatEditText
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             {
                 valueAnimator.resume();
+            } else
+            {
+                startLoading();
             }
         } else
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             {
                 valueAnimator.pause();
+            } else
+            {
+                stopLoading();
             }
         }
     }
@@ -155,19 +162,23 @@ public class GraduallyTextView extends AppCompatEditText
         if (!isStop)
         {
             mPaint.setAlpha(255);
+            //当progress进度大于一个字的进度时
             if (progress / sigleDuration >= 1)
             {
-                canvas.drawText(String.valueOf(text), 0,
-                        (int) (progress / sigleDuration), scaleX, startY,
+                canvas.drawText(String.valueOf(text), 0, (int) (progress / sigleDuration), scaleX, startY,
                         mPaint);
             }
+            //设置即将出现那个字的透明度
             mPaint.setAlpha((int) (255 * ((progress % sigleDuration) / sigleDuration)));
+            //最后一个显示出来的字的position
             int lastOne = (int) (progress / sigleDuration);
+            //如果position小于textLength
             if (lastOne < textLength)
             {
+                //即将显示那一个字的透明度
+                //measureText测量出text的宽度
                 canvas.drawText(String.valueOf(text.charAt(lastOne)), 0, 1,
-                        scaleX + getPaint().measureText(text.subSequence(0, lastOne).toString()),
-                        startY, mPaint);
+                        scaleX + getPaint().measureText(text.subSequence(0, lastOne).toString()), startY, mPaint);
             }
         }
     }
