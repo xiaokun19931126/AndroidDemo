@@ -9,33 +9,40 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/10/20 0020.
  */
-public class NewsData implements Serializable {
+public class NewsData implements Serializable
+{
 
     List<NewsDetails> list;
     OutNews outNews;
     CustomJSONArray customJSONArray;
 
-    public CustomJSONArray getCustomJSONArray() {
+    public CustomJSONArray getCustomJSONArray()
+    {
         return customJSONArray;
     }
 
-    public void setCustomJSONArray(CustomJSONArray customJSONArray) {
+    public void setCustomJSONArray(CustomJSONArray customJSONArray)
+    {
         this.customJSONArray = customJSONArray;
     }
 
-    public List<NewsDetails> getList() {
+    public List<NewsDetails> getList()
+    {
         return list;
     }
 
-    public void setList(List<NewsDetails> list) {
+    public void setList(List<NewsDetails> list)
+    {
         this.list = list;
     }
 
-    public class OutNews implements Serializable{
+    public class OutNews implements Serializable
+    {
 
     }
 
-    public class NewsDetails implements Serializable {
+    public class NewsDetails implements Serializable
+    {
         String id;
         String img;
         String url;
@@ -45,61 +52,73 @@ public class NewsData implements Serializable {
         CustomHashMap<String, Integer> hashMap;
 
 
-
-
-        public CustomHashMap<String, Integer> getHashMap() {
+        public CustomHashMap<String, Integer> getHashMap()
+        {
             return hashMap;
         }
 
-        public void setHashMap(CustomHashMap<String, Integer> hashMap) {
+        public void setHashMap(CustomHashMap<String, Integer> hashMap)
+        {
             this.hashMap = hashMap;
         }
 
-        public int getNum() {
+        public int getNum()
+        {
             return num;
         }
 
-        public void setNum(int num) {
+        public void setNum(int num)
+        {
             this.num = num;
         }
 
-        public String getId() {
+        public String getId()
+        {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(String id)
+        {
             this.id = id;
         }
 
-        public String getImg() {
+        public String getImg()
+        {
             return img;
         }
 
-        public void setImg(String img) {
+        public void setImg(String img)
+        {
             this.img = img;
         }
 
-        public String getUrl() {
+        public String getUrl()
+        {
             return url;
         }
 
-        public void setUrl(String url) {
+        public void setUrl(String url)
+        {
             this.url = url;
         }
 
-        public String getTitle() {
+        public String getTitle()
+        {
             return title;
         }
 
-        public void setTitle(String title) {
+        public void setTitle(String title)
+        {
             this.title = title;
         }
 
-        public String getContent() {
+        public String getContent()
+        {
             return content;
         }
 
-        public void setContent(String content) {
+        public void setContent(String content)
+        {
             this.content = content;
         }
     }

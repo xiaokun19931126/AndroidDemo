@@ -28,7 +28,8 @@ public class FirstActivity extends AppCompatActivity
             "登录模块", "16和10互转", "引导帮助案例", "事件冲突案例", "清空缓存", "顶部悬浮案例",
             "自定义View之芝麻信用", "自定义View之转盘", "自定义View之时钟", "自定义View之搜索",
             "app间跳转案例", "html赏析", "下载app测试", "我的收藏", "高价下载", "测试热更新", "textviewDemo",
-            "通知栏下载文件实时跟新进度", "loadview", "代替ListView的LinearLayout", "imageview"};
+            "通知栏下载文件实时跟新进度", "loadview", "代替ListView的LinearLayout", "imageview",
+            "retrofit下载", "retrofit上传", "rv中searchView"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -134,6 +135,15 @@ public class FirstActivity extends AppCompatActivity
                         break;
                     case 26:
                         intent.setClass(FirstActivity.this, ImageViewActivity.class);
+                        break;
+                    case 27:
+                        intent.setClass(FirstActivity.this, RetrofitDownLoadActivity.class);
+                        break;
+                    case 28:
+                        intent.setClass(FirstActivity.this, RetrofitUploadActivity.class);
+                        break;
+                    case 29:
+                        intent.setClass(FirstActivity.this, SearchViewWithRvActivity.class);
                         break;
                     default:
                         break;

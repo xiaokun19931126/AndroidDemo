@@ -1,4 +1,4 @@
-package com.xiaokun.http_library.baseobserver;
+package com.xiaokun.http_library.base;
 
 
 import com.xiaokun.http_library.entity.BaseData;

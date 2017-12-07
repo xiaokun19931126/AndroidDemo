@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yuyh.library.Base.util.TUtil;
+import com.yuyh.library.utils.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 
@@ -31,6 +32,7 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
      */
     protected View contentView;
     protected BaseActivity mActivity;
+    public ToastUtils toastUtils;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -86,6 +88,7 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     {
         super.onActivityCreated(savedInstanceState);
         mActivity = (BaseActivity) getActivity();
+        toastUtils = new ToastUtils();
         doBusiness(mActivity);
         Log.d(TAG, "onActivityCreated: ");
     }
@@ -173,6 +176,7 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
         {
             ((ViewGroup) contentView.getParent()).removeView(contentView);
         }
+        ButterKnife.unbind(this);
         super.onDestroyView();
         Log.d(TAG, "onDestroyView: ");
     }

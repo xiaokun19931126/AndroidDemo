@@ -3,7 +3,7 @@ package com.xiaokun.http_library.observer;
 import android.app.Dialog;
 
 import com.xiaokun.http_library.RxHttpUtils;
-import com.xiaokun.http_library.baseobserver.BaseDataObserver;
+import com.xiaokun.http_library.base.BaseDataObserver;
 import com.xiaokun.http_library.entity.BaseData;
 
 import io.reactivex.disposables.Disposable;

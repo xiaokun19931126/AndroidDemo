@@ -1,9 +1,12 @@
 package com.xiaokun.xiusou.demo6.Application;
 
-import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.socks.library.KLog;
 import com.wanjian.sak.SAK;
+import com.xiaokun.http_library.RxHttpUtils;
 import com.xiaokun.xiusou.demo6.BuildConfig;
 import com.xiaokun.xiusou.demo6.Utils.ACache;
 import com.yuyh.library.AppUtils;
@@ -22,7 +25,7 @@ import okhttp3.OkHttpClient;
  * Created by Administrator on 2016/11/18 0018.
  */
 
-public class MyApplication extends Application
+public class MyApplication extends MultiDexApplication
 {
 
     public static ACache aCache;
@@ -61,6 +64,22 @@ public class MyApplication extends Application
                 .apiKey("9a259c70bd634236ad1669e7271d7cd8")
                 .forceReports(BuildConfig.DEBUG)
                 .start();
+        RxHttpUtils.init(this);
+
+        RxHttpUtils.getInstance()
+                .config()
+                .setBaseUrl("http://gank.io/api/")
+                .setWriteTimeOut(10)
+                .setConnectTimeOut(10)
+                .setReadTimeOut(10)
+                .setLog(BuildConfig.DEBUG);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base)
+    {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
 }

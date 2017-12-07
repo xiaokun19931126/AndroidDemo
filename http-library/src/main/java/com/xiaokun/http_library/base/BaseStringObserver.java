@@ -1,8 +1,8 @@
-package com.xiaokun.http_library.baseobserver;
+package com.xiaokun.http_library.base;
 
 
 import com.xiaokun.http_library.exception.ApiException;
-import com.xiaokun.http_library.interfaces.ISubscriber;
+import com.xiaokun.http_library.interfaces.IStringSubscriber;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable;
  * @date 2017/11/30
  */
 
-public abstract class BaseObserver<T> implements Observer<T>, ISubscriber<T>
+public abstract class BaseStringObserver implements Observer<String>, IStringSubscriber
 {
     @Override
     public void onSubscribe(@NonNull Disposable d)
@@ -22,9 +22,9 @@ public abstract class BaseObserver<T> implements Observer<T>, ISubscriber<T>
     }
 
     @Override
-    public void onNext(@NonNull T t)
+    public void onNext(@NonNull String s)
     {
-        doOnNext(t);
+        doOnNext(s);
     }
 
     @Override

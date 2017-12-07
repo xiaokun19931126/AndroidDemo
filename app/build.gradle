@@ -11,6 +11,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        // Enabling multidex support.
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -75,4 +77,9 @@ dependencies {
     //android免root兼容所有版本ui调试工具
     compile 'com.wanjian:sak:0.1.2.8'
     compile project(':http-library')
+    //66582
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //recyclerView 适配器
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.32'
 }

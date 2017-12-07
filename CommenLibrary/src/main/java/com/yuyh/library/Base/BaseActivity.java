@@ -2,7 +2,6 @@ package com.yuyh.library.Base;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -14,6 +13,7 @@ import com.yuyh.library.R;
 import com.yuyh.library.utils.AppManager;
 import com.yuyh.library.utils.DayNightModelUtils.ChangeModeController;
 import com.yuyh.library.utils.StatusBarUtil;
+import com.yuyh.library.utils.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 
@@ -26,10 +26,12 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     public Context mContext;
     public P mPresenter;
     public M mModel;
+    public ToastUtils toastUtils;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
+//        ChangeModeController.getInstance().init(this, getClass());
         super.onCreate(savedInstanceState);
         mContext = this;
         Bundle bundle = getIntent().getExtras();
@@ -64,7 +66,8 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
         // 无标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 设置竖屏
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        toastUtils = new ToastUtils();
     }
 
     /**
@@ -136,8 +139,9 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     }
 
     /**
-     * 含有Bundle通过Class跳转界面
-     **/
+     * @param cls    将要跳转到的页面
+     * @param bundle bundle包含有传递的参数
+     */
     public void startActivity(Class<?> cls, Bundle bundle)
     {
         Intent intent = new Intent();
@@ -153,6 +157,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     protected void onDestroy()
     {
         super.onDestroy();
+        ButterKnife.unbind(this);
         if (mPresenter != null) mPresenter.detachVM();
         AppManager.getAppManager().finishActivity(this);
     }
