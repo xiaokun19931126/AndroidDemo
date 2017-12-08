@@ -91,6 +91,7 @@ public class RetrofitUploadActivity extends BaseActivity
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
         {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }

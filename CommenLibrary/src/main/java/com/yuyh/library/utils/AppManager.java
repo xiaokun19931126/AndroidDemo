@@ -242,4 +242,22 @@ public class AppManager
             }
         }
     }
+
+    /**
+     * 只保留最后一个activity
+     */
+    public synchronized void saveOneLastActivity()
+    {
+        int count = activityStack.size();
+        for (int size = count - 2; size > -1; size--)
+        {
+            Activity activity = activityStack.get(size);
+            if (activity != null)
+            {
+                finishActivity(activity);
+                activity.finish();
+            }
+        }
+    }
+
 }

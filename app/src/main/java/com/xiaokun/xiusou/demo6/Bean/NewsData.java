@@ -1,5 +1,7 @@
 package com.xiaokun.xiusou.demo6.Bean;
 
+import android.os.Parcelable;
+
 import com.xiaokun.xiusou.demo6.Utils.CustomHashMap;
 import com.xiaokun.xiusou.demo6.Utils.CustomJSONArray;
 

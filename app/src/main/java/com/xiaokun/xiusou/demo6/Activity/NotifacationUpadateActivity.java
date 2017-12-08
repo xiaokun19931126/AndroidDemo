@@ -21,7 +21,7 @@ import com.xiaokun.xiusou.demo6.Service.UpdateService;
  */
 public class NotifacationUpadateActivity extends AppCompatActivity
 {
-
+    //http://imtt.dd.qq.com/16891/88BF95CADA9CFDDC7E698F6B6744FCAD.apk?fsname=com.xiaocai.httpdemo_1.0_1.apk&csr=1bbd
     private static final String url = "http://14.204.74.141/imtt.dd.qq." +
             "com/16891/88BF95CADA9CFDDC7E698F6B6744FCAD.apk?mkey=58aec27075" +
             "da6ad8&f=6606&c=0&fsname=com.xiaocai.httpdemo_1.0_1.apk&csr=4d5s&p=.apk";
