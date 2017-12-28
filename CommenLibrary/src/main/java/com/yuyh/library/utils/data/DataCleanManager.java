@@ -11,7 +11,8 @@ import java.io.File;
  * @author yuyh.
  * @date 16/4/11.
  */
-public class DataCleanManager {
+public class DataCleanManager
+{
 
     /**
      * 清除本应用所有的数据
@@ -19,13 +20,15 @@ public class DataCleanManager {
      * @param context  上下文
      * @param filePath 文件路径
      */
-    public static void cleanApplicationData(Context context, String... filePath) {
+    public static void cleanApplicationData(Context context, String... filePath)
+    {
         cleanInternalCache(context);
         cleanExternalCache(context);
         cleanDatabases(context);
         cleanSharedPreference(context);
         cleanFiles(context);
-        for (String fp : filePath) {
+        for (String fp : filePath)
+        {
             cleanCustomCache(fp);
         }
     }
@@ -35,7 +38,8 @@ public class DataCleanManager {
      *
      * @param context 上下文
      */
-    public static void cleanInternalCache(Context context) {
+    public static void cleanInternalCache(Context context)
+    {
         deleteFilesByDirectory(context.getCacheDir());
     }
 
@@ -44,7 +48,8 @@ public class DataCleanManager {
      *
      * @param context 上下文
      */
-    public static void cleanDatabases(Context context) {
+    public static void cleanDatabases(Context context)
+    {
         deleteFilesByDirectory(new File(context.getFilesDir().getPath()
                 + context.getPackageName() + "/databases"));
     }
@@ -54,7 +59,8 @@ public class DataCleanManager {
      *
      * @param context 上下文
      */
-    public static void cleanSharedPreference(Context context) {
+    public static void cleanSharedPreference(Context context)
+    {
         deleteFilesByDirectory(new File(context.getFilesDir().getPath()
                 + context.getPackageName() + "/shared_prefs"));
     }
@@ -65,7 +71,8 @@ public class DataCleanManager {
      * @param context 上下文
      * @param dbName  数据库名称
      */
-    public static void cleanDatabaseByName(Context context, String dbName) {
+    public static void cleanDatabaseByName(Context context, String dbName)
+    {
         context.deleteDatabase(dbName);
     }
 
@@ -74,7 +81,8 @@ public class DataCleanManager {
      *
      * @param context 上下文
      */
-    public static void cleanFiles(Context context) {
+    public static void cleanFiles(Context context)
+    {
         deleteFilesByDirectory(context.getFilesDir());
     }
 
@@ -83,9 +91,11 @@ public class DataCleanManager {
      *
      * @param context 上下文
      */
-    public static void cleanExternalCache(Context context) {
+    public static void cleanExternalCache(Context context)
+    {
         if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
+                Environment.MEDIA_MOUNTED))
+        {
             deleteFilesByDirectory(context.getExternalCacheDir());
         }
     }
@@ -95,7 +105,8 @@ public class DataCleanManager {
      *
      * @param filePath 文件路径
      */
-    public static void cleanCustomCache(String filePath) {
+    public static void cleanCustomCache(String filePath)
+    {
         deleteFilesByDirectory(new File(filePath));
     }
 
@@ -105,9 +116,12 @@ public class DataCleanManager {
      *
      * @param directory 文件夹File对象
      */
-    private static void deleteFilesByDirectory(File directory) {
-        if (directory != null && directory.exists() && directory.isDirectory()) {
-            for (File item : directory.listFiles()) {
+    private static void deleteFilesByDirectory(File directory)
+    {
+        if (directory != null && directory.exists() && directory.isDirectory())
+        {
+            for (File item : directory.listFiles())
+            {
                 item.delete();
             }
         }

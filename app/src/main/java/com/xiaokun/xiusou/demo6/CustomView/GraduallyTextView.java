@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -26,12 +27,17 @@ public class GraduallyTextView extends AppCompatEditText
     private Paint mPaint;
     private int textLength;//设置文本长度
     private boolean isStop = true;
-    private float scaleX;//设置缩放比例
+//    private float scaleX;//设置缩放比例
+    /**
+     * 总时长
+     */
     private int duration = 2000;
+    /**
+     * 单字时长
+     */
     private float sigleDuration;
 
     private ValueAnimator valueAnimator;//设置属性平移、缩放动画
-
 
     public GraduallyTextView(Context context)
     {
@@ -39,20 +45,17 @@ public class GraduallyTextView extends AppCompatEditText
         init();
     }
 
-
     public GraduallyTextView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         init();
     }
 
-
     public GraduallyTextView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
         init();
     }
-
 
     public void init()
     {
@@ -81,6 +84,18 @@ public class GraduallyTextView extends AppCompatEditText
                 });
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        mPaint.setTextSize(getTextSize());
+        float width = mPaint.measureText(text.toString());
+        float fontSpacing = mPaint.getFontSpacing();
+        Log.e("GraduallyTextView", "onMeasure(GraduallyTextView.java:99)" + fontSpacing);
+        setWidth((int) width);
+        setHeight((int) fontSpacing);
+    }
+
     //设置开始读取的方法
     public void startLoading()
     {
@@ -97,8 +112,10 @@ public class GraduallyTextView extends AppCompatEditText
         isStop = false;
         text = getText();
 
-        scaleX = getTextScaleX() * 10;
-        startY = 88;
+        //y轴基线下移2倍行距
+        mPaint.setTextSize(getTextSize());
+        startY = (int) (2 * mPaint.getFontSpacing());
+        Log.e("GraduallyTextView", "startLoading(GraduallyTextView.java:125)" + startY);
         mPaint.setColor(getCurrentTextColor());
         mPaint.setTextSize(getTextSize());
         setMinWidth(getWidth());
@@ -165,8 +182,7 @@ public class GraduallyTextView extends AppCompatEditText
             //当progress进度大于一个字的进度时
             if (progress / sigleDuration >= 1)
             {
-                canvas.drawText(String.valueOf(text), 0, (int) (progress / sigleDuration), scaleX, startY,
-                        mPaint);
+                canvas.drawText(String.valueOf(text), 0, (int) (progress / sigleDuration), 0, startY, mPaint);
             }
             //设置即将出现那个字的透明度
             mPaint.setAlpha((int) (255 * ((progress % sigleDuration) / sigleDuration)));
@@ -178,7 +194,7 @@ public class GraduallyTextView extends AppCompatEditText
                 //即将显示那一个字的透明度
                 //measureText测量出text的宽度
                 canvas.drawText(String.valueOf(text.charAt(lastOne)), 0, 1,
-                        scaleX + getPaint().measureText(text.subSequence(0, lastOne).toString()), startY, mPaint);
+                        getPaint().measureText(text.subSequence(0, lastOne).toString()), startY, mPaint);
             }
         }
     }

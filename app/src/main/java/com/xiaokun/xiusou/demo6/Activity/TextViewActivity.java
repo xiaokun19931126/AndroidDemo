@@ -6,27 +6,36 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.widget.TextView;
 
 import com.xiaokun.xiusou.demo6.CustomView.MTextView;
 import com.xiaokun.xiusou.demo6.R;
+import com.xiaokun.xiusou.demo6.Utils.AlignedTextUtils;
 
 /**
  * Created by Administrator on 2017/1/5 0005.
  */
 
-public class TextViewActivity extends AppCompatActivity {
+public class TextViewActivity extends AppCompatActivity
+{
 
     private TextView textView1;
     private TextView textView2;
     private TextView textView3;
     private MTextView textView4;
+    private TextView textView5;
+    private TextView textView6;
+    private TextView textView7;
+    private TextView textView8;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_textview);
 
@@ -34,10 +43,17 @@ public class TextViewActivity extends AppCompatActivity {
         textView2 = (TextView) findViewById(R.id.text_view2);
         textView3 = (TextView) findViewById(R.id.text_view3);
         textView4 = (MTextView) findViewById(R.id.text_view4);
+        textView5 = (TextView) findViewById(R.id.text_view5);
+        textView6 = (TextView) findViewById(R.id.text_view6);
+        textView7 = (TextView) findViewById(R.id.text_view7);
+        textView8 = (TextView) findViewById(R.id.text_view8);
         textView1.setTextSize(18);
         textView2.setTextSize(18);
         textView3.setTextSize(18);
         textView4.setTextSize(18);
+        textView5.setTextSize(18);
+        textView6.setTextSize(18);
+        textView7.setTextSize(18);
 
 
         textView1.setText(Html.fromHtml("<font color=\"#AD6E13\" size=\"1\">使</font><font " +
@@ -100,5 +116,17 @@ public class TextViewActivity extends AppCompatActivity {
                 ".jcodecraeer" +
                 ".com/a/anzhuokaifa/androidkaifa/2015/1009/3553.html");
         textView4.invalidate();
+
+        SpannableStringBuilder builder1 = AlignedTextUtils.justifyString("所属区域", 6);
+        SpannableStringBuilder builder2 = AlignedTextUtils.justifyString("开始出土时间", 6);
+        SpannableStringBuilder builder3 = AlignedTextUtils.justifyString("最新出土时间", 6);
+        textView5.setText(builder1);
+        textView6.setText(builder2);
+        textView7.setText(builder3);
+
+        SpannableString spannableString3 = new SpannableString("武汉市关山大道");
+        UnderlineSpan underlineSpan = new UnderlineSpan();
+        spannableString3.setSpan(underlineSpan, 0, spannableString3.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView8.setText(spannableString3);
     }
 }

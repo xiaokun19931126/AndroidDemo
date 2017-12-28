@@ -45,7 +45,8 @@ import okhttp3.Call;
  * Created by Administrator on 2016/10/27 0027.
  */
 
-public class ZakerNewsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ZakerNewsActivity extends AppCompatActivity implements View.OnClickListener
+{
 
     @Bind(R.id.mList)
     ListView listView;
@@ -89,7 +90,8 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
     private String str;//网页源代码
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zaker);
         ButterKnife.bind(this);
@@ -115,29 +117,35 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
         listView.setAdapter(new MyAdapter());
     }
 
-    private void getOriginCode() {
+    private void getOriginCode()
+    {
         Thread thread = new Thread(runnable);
         thread.start();
     }
 
-    private void getCommentData() {
+    private void getCommentData()
+    {
         OkHttpUtils.post().url("http://z.01808.cn/api/chaxunpinglun2/")
                 .addParams("urlid", pk).addParams("page", "1").addParams("isweb", "1").build()
-                .execute(new CommentDataCallback() {
+                .execute(new CommentDataCallback()
+                {
                     @Override
-                    public void onError(Call call, Exception e, int id) {
+                    public void onError(Call call, Exception e, int id)
+                    {
 
                     }
 
                     @Override
-                    public void onResponse(CommentData response, int id) {
+                    public void onResponse(CommentData response, int id)
+                    {
 
 //                        progressBar.setVisibility(View.GONE);
                     }
                 });
     }
 
-    private void setView() {
+    private void setView()
+    {
         view = View.inflate(this, R.layout.head_view, null);
         headView = (LinearLayout) view.findViewById(R.id.head_view);
         webView = (WebView) view.findViewById(R.id.webview);
@@ -170,18 +178,22 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    private void getReComendData(String mTitle, String pk, String url) {
+    private void getReComendData(String mTitle, String pk, String url)
+    {
         OkHttpUtils.post().url("http://z.01808.cn/api/contentlist/").addParams
                 ("title", mTitle).addParams("url", url)
-                .addParams("urlid", pk).build().execute(new RecomendDataCallBack() {
+                .addParams("urlid", pk).build().execute(new RecomendDataCallBack()
+        {
 
             @Override
-            public void onError(Call call, Exception e, int id) {
+            public void onError(Call call, Exception e, int id)
+            {
 
             }
 
             @Override
-            public void onResponse(List<RecommendData.data> response, int id) {
+            public void onResponse(List<RecommendData.data> response, int id)
+            {
                 mResponse = response;
                 title1.setText(response.get(0).getTitle());
                 title2.setText(response.get(1).getTitle());
@@ -212,10 +224,13 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-    Runnable runnable = new Runnable() {
+    Runnable runnable = new Runnable()
+    {
         @Override
-        public void run() {
-            try {
+        public void run()
+        {
+            try
+            {
                 html = new StringBuffer();
                 URL mUrl = new URL(url);
                 HttpURLConnection conn = (HttpURLConnection) mUrl
@@ -224,7 +239,8 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
                         .getInputStream());
                 BufferedReader br = new BufferedReader(isr);
                 String temp;
-                while ((temp = br.readLine()) != null) {
+                while ((temp = br.readLine()) != null)
+                {
                     html.append(temp).append("\n");
                 }
                 br.close();
@@ -242,26 +258,32 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
                 Matcher m = r.matcher(str);
                 Matcher m2 = r2.matcher(str);
                 // System.out.println("xiaokun" + str);
-                if (m.find()) {
+                if (m.find())
+                {
                     mContent = m.group();
                     Log.d("xiaokun", "xxxxxxxxxiaokun" + mContent);
                 }
-                if (m2.find()) {
+                if (m2.find())
+                {
                     title = m2.group();
 //                    title.setText(m2.group());
                 }
                 handler.sendEmptyMessage(0);
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
     };
 
-    Handler handler = new Handler() {
+    Handler handler = new Handler()
+    {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(Message msg)
+        {
             super.handleMessage(msg);
-            switch (msg.what) {
+            switch (msg.what)
+            {
                 case 0:
                     String head;
                     head = "<head><style>img{max-width:100%} p{text-indent: 2em;}"
@@ -284,9 +306,11 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
                     webSettings.setJavaScriptEnabled(true);
                     webView.loadDataWithBaseURL(null, data, "text/html", "utf-8",
                             null);
-                    webView.setWebViewClient(new WebViewClient() {
+                    webView.setWebViewClient(new WebViewClient()
+                    {
                         @Override
-                        public void onPageFinished(WebView view, String url) {
+                        public void onPageFinished(WebView view, String url)
+                        {
                             super.onPageFinished(view, url);
                             getReComendData(mTitle, pk, url);
 
@@ -299,9 +323,11 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
     };
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         Intent intent = new Intent();
-        switch (v.getId()) {
+        switch (v.getId())
+        {
             case R.id.layout1:
                 intent.setClass(ZakerNewsActivity.this, MyWebActivity.class);
                 intent.putExtra("id", mResponse.get(0).getId());
@@ -341,25 +367,30 @@ public class ZakerNewsActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    class MyAdapter extends BaseAdapter {
+    class MyAdapter extends BaseAdapter
+    {
 
         @Override
-        public int getCount() {
+        public int getCount()
+        {
             return 0;
         }
 
         @Override
-        public Object getItem(int position) {
+        public Object getItem(int position)
+        {
             return null;
         }
 
         @Override
-        public long getItemId(int position) {
+        public long getItemId(int position)
+        {
             return position;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
             return null;
         }
     }
