@@ -6,12 +6,12 @@ apply plugin: 'com.android.library'
 // Your Group
 group='com.github.lygttpod'
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion '25.0.0'
 
     defaultConfig {
         minSdkVersion 11
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 104
         versionName "1.0.4"
 

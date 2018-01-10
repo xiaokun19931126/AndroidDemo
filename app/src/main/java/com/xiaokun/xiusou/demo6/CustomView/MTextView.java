@@ -29,7 +29,8 @@ import java.util.HashMap;
  * @2014年5月27日
  * @下午5:29:27
  */
-public class MTextView extends TextView {
+public class MTextView extends TextView
+{
     /**
      * 缓存测量过的数据
      */
@@ -98,23 +99,27 @@ public class MTextView extends TextView {
      */
     private Rect textBgColorRect = new Rect();
 
-    public MTextView(Context context) {
+    public MTextView(Context context)
+    {
         super(context);
         init(context);
     }
 
-    public MTextView(Context context, AttributeSet attrs) {
+    public MTextView(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
         init(context);
     }
 
-    public MTextView(Context context, AttributeSet attrs, int defStyle) {
+    public MTextView(Context context, AttributeSet attrs, int defStyle)
+    {
         super(context, attrs, defStyle);
         init(context);
     }
 
 
-    public void init(Context context) {
+    public void init(Context context)
+    {
         this.context = context;
         paint.setAntiAlias(true);
         lineSpacing = dip2px(context, lineSpacingDP);
@@ -123,7 +128,8 @@ public class MTextView extends TextView {
         displayMetrics = new DisplayMetrics();
     }
 
-    public static int px2sp(Context context, float pxValue) {
+    public static int px2sp(Context context, float pxValue)
+    {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
@@ -131,26 +137,31 @@ public class MTextView extends TextView {
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
-    public static int dip2px(Context context, float dpValue) {
+    public static int dip2px(Context context, float dpValue)
+    {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
     @Override
-    public void setMaxWidth(int maxpixels) {
+    public void setMaxWidth(int maxpixels)
+    {
         super.setMaxWidth(maxpixels);
         maxWidth = maxpixels;
     }
 
     @Override
-    public void setMinHeight(int minHeight) {
+    public void setMinHeight(int minHeight)
+    {
         super.setMinHeight(minHeight);
         this.minHeight = minHeight;
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (useDefault) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        if (useDefault)
+        {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
         }
@@ -161,7 +172,8 @@ public class MTextView extends TextView {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
-        switch (widthMode) {
+        switch (widthMode)
+        {
             case MeasureSpec.EXACTLY:
                 width = widthSize;
                 break;
@@ -176,7 +188,8 @@ public class MTextView extends TextView {
             default:
                 break;
         }
-        if (maxWidth > 0) {
+        if (maxWidth > 0)
+        {
             width = Math.min(width, maxWidth);
         }
 
@@ -189,10 +202,12 @@ public class MTextView extends TextView {
         int rightPadding = getCompoundPaddingRight();
         width = Math.min(width, (int) lineWidthMax + leftPadding + rightPadding);
 
-        if (oneLineWidth > -1) {
+        if (oneLineWidth > -1)
+        {
             width = oneLineWidth;
         }
-        switch (heightMode) {
+        switch (heightMode)
+        {
             case MeasureSpec.EXACTLY:
                 height = heightSize;
                 break;
@@ -214,12 +229,15 @@ public class MTextView extends TextView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        if (useDefault) {
+    protected void onDraw(Canvas canvas)
+    {
+        if (useDefault)
+        {
             super.onDraw(canvas);
             return;
         }
-        if (contentList.isEmpty()) {
+        if (contentList.isEmpty())
+        {
             return;
         }
         int width;
@@ -231,16 +249,19 @@ public class MTextView extends TextView {
 
         float height = 0 + topPadding + lineSpacing;
         //只有一行时
-        if (oneLineWidth != -1) {
+        if (oneLineWidth != -1)
+        {
             height = getMeasuredHeight() / 2 - contentList.get(0).height / 2;
         }
 
-        for (LINE aContentList : contentList) {
+        for (LINE aContentList : contentList)
+        {
             //绘制一行
             float realDrawedWidth = leftPadding;
             /** 是否换新段落*/
             boolean newParagraph = false;
-            for (int j = 0; j < aContentList.line.size(); j++) {
+            for (int j = 0; j < aContentList.line.size(); j++)
+            {
                 ob = aContentList.line.get(j);
                 width = aContentList.widthList.get(j);
 
@@ -249,21 +270,26 @@ public class MTextView extends TextView {
                 float y = height + aContentList.height - paint.getFontMetrics().descent;
                 float top = y - aContentList.height;
                 float bottom = y + mFontMetrics.descent;
-                if (ob instanceof String) {
+                if (ob instanceof String)
+                {
                     canvas.drawText((String) ob, realDrawedWidth, y, paint);
                     realDrawedWidth += width;
-                    if(((String)ob).endsWith("\n") && j == aContentList.line.size()-1){
+                    if (((String) ob).endsWith("\n") && j == aContentList.line.size() - 1)
+                    {
                         newParagraph = true;
                     }
-                } else if (ob instanceof SpanObject) {
+                } else if (ob instanceof SpanObject)
+                {
                     Object span = ((SpanObject) ob).span;
-                    if (span instanceof DynamicDrawableSpan) {
+                    if (span instanceof DynamicDrawableSpan)
+                    {
 
                         int start = ((Spannable) text).getSpanStart(span);
                         int end = ((Spannable) text).getSpanEnd(span);
                         ((DynamicDrawableSpan) span).draw(canvas, text, start, end, (int) x, (int) top, (int) y, (int) bottom, paint);
                         realDrawedWidth += width;
-                    } else if (span instanceof BackgroundColorSpan) {
+                    } else if (span instanceof BackgroundColorSpan)
+                    {
 
                         textBgColorPaint.setColor(((BackgroundColorSpan) span).getBackgroundColor());
                         textBgColorPaint.setStyle(Style.FILL);
@@ -284,9 +310,11 @@ public class MTextView extends TextView {
 
             }
             //如果要绘制段间距
-            if(newParagraph){
+            if (newParagraph)
+            {
                 height += aContentList.height + paragraphSpacing;
-            }else{
+            } else
+            {
                 height += aContentList.height + lineSpacing;
             }
         }
@@ -294,7 +322,8 @@ public class MTextView extends TextView {
     }
 
     @Override
-    public void setTextColor(int color) {
+    public void setTextColor(int color)
+    {
         super.setTextColor(color);
         textColor = color;
     }
@@ -305,10 +334,12 @@ public class MTextView extends TextView {
      * @param width 预定的宽度
      * @return 所需的高度
      */
-    private int measureContentHeight(int width) {
+    private int measureContentHeight(int width)
+    {
         int cachedHeight = getCachedData(text.toString(), width);
 
-        if (cachedHeight > 0) {
+        if (cachedHeight > 0)
+        {
             return cachedHeight;
         }
 
@@ -340,36 +371,45 @@ public class MTextView extends TextView {
 
         LINE line = new LINE();
 
-        for (int i = 0; i < obList.size(); i++) {
+        for (int i = 0; i < obList.size(); i++)
+        {
             Object ob = obList.get(i);
 
-            if (ob instanceof String) {
+            if (ob instanceof String)
+            {
                 obWidth = paint.measureText((String) ob);
                 obHeight = textSize;
-                if ("\n".equals(ob)) { //遇到"\n"则换行
+                if ("\n".equals(ob))
+                { //遇到"\n"则换行
                     obWidth = width - drawedWidth;
                 }
-            } else if (ob instanceof SpanObject) {
+            } else if (ob instanceof SpanObject)
+            {
                 Object span = ((SpanObject) ob).span;
-                if (span instanceof DynamicDrawableSpan) {
+                if (span instanceof DynamicDrawableSpan)
+                {
                     int start = ((Spannable) text).getSpanStart(span);
                     int end = ((Spannable) text).getSpanEnd(span);
                     obWidth = ((DynamicDrawableSpan) span).getSize(getPaint(), text, start, end, mSpanFmInt);
                     obHeight = Math.abs(mSpanFmInt.top) + Math.abs(mSpanFmInt.bottom);
-                    if (obHeight > lineHeight) {
+                    if (obHeight > lineHeight)
+                    {
                         lineHeight = obHeight;
                     }
-                } else if (span instanceof BackgroundColorSpan) {
+                } else if (span instanceof BackgroundColorSpan)
+                {
                     String str = ((SpanObject) ob).source.toString();
                     obWidth = paint.measureText(str);
                     obHeight = textSize;
 
                     //如果太长,拆分
                     int k = str.length() - 1;
-                    while (width - drawedWidth < obWidth) {
+                    while (width - drawedWidth < obWidth)
+                    {
                         obWidth = paint.measureText(str.substring(0, k--));
                     }
-                    if (k < str.length() - 1) {
+                    if (k < str.length() - 1)
+                    {
                         splitFlag = true;
                         SpanObject so1 = new SpanObject();
                         so1.start = ((SpanObject) ob).start;
@@ -388,7 +428,8 @@ public class MTextView extends TextView {
                         i--;
                     }
                 }//做字符串处理
-                else {
+                else
+                {
                     String str = ((SpanObject) ob).source.toString();
                     obWidth = paint.measureText(str);
                     obHeight = textSize;
@@ -396,11 +437,13 @@ public class MTextView extends TextView {
             }
 
             //这一行满了，存入contentList,新起一行
-            if (width - drawedWidth < obWidth || splitFlag) {
+            if (width - drawedWidth < obWidth || splitFlag)
+            {
                 splitFlag = false;
                 contentList.add(line);
 
-                if (drawedWidth > lineWidthMax) {
+                if (drawedWidth > lineWidthMax)
+                {
                     lineWidthMax = drawedWidth;
                 }
                 drawedWidth = 0;
@@ -409,9 +452,11 @@ public class MTextView extends TextView {
                 if (paragraphSpacing > 0
                         && objNum > 0
                         && line.line.get(objNum - 1) instanceof String
-                        && "\n".equals(line.line.get(objNum - 1))) {
+                        && "\n".equals(line.line.get(objNum - 1)))
+                {
                     height += line.height + paragraphSpacing;
-                } else {
+                } else
+                {
                     height += line.height + lineSpacing;
                 }
 
@@ -422,7 +467,8 @@ public class MTextView extends TextView {
 
             drawedWidth += obWidth;
 
-            if (ob instanceof String && line.line.size() > 0 && (line.line.get(line.line.size() - 1) instanceof String)) {
+            if (ob instanceof String && line.line.size() > 0 && (line.line.get(line.line.size() - 1) instanceof String))
+            {
                 int size = line.line.size();
                 sb = new StringBuilder();
                 sb.append(line.line.get(size - 1));
@@ -432,7 +478,8 @@ public class MTextView extends TextView {
                 line.line.set(size - 1, ob);
                 line.widthList.set(size - 1, (int) obWidth);
                 line.height = (int) lineHeight;
-            } else {
+            } else
+            {
                 line.line.add(ob);
                 line.widthList.add((int) obWidth);
                 line.height = (int) lineHeight;
@@ -440,15 +487,18 @@ public class MTextView extends TextView {
 
         }
 
-        if (drawedWidth > lineWidthMax) {
+        if (drawedWidth > lineWidthMax)
+        {
             lineWidthMax = drawedWidth;
         }
 
-        if (line != null && line.line.size() > 0) {
+        if (line != null && line.line.size() > 0)
+        {
             contentList.add(line);
             height += lineHeight + lineSpacing;
         }
-        if (contentList.size() <= 1) {
+        if (contentList.size() <= 1)
+        {
             oneLineWidth = (int) drawedWidth + leftPadding + rightPadding;
             height = lineSpacing + lineHeight + lineSpacing;
         }
@@ -465,24 +515,29 @@ public class MTextView extends TextView {
      * @return height
      */
     @SuppressWarnings("unchecked")
-    private int getCachedData(String text, int width) {
+    private int getCachedData(String text, int width)
+    {
         SoftReference<MeasuredData> cache = measuredData.get(text);
-        if (cache == null) {
+        if (cache == null)
+        {
             return -1;
         }
         MeasuredData md = cache.get();
-        if (md != null && md.textSize == this.getTextSize() && width == md.width) {
+        if (md != null && md.textSize == this.getTextSize() && width == md.width)
+        {
             lineWidthMax = md.lineWidthMax;
             contentList = (ArrayList<LINE>) md.contentList.clone();
             oneLineWidth = md.oneLineWidth;
 
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < contentList.size(); i++) {
+            for (int i = 0; i < contentList.size(); i++)
+            {
                 LINE line = contentList.get(i);
                 sb.append(line.toString());
             }
             return md.measuredHeight;
-        } else {
+        } else
+        {
             return -1;
         }
     }
@@ -494,7 +549,8 @@ public class MTextView extends TextView {
      * @param height
      */
     @SuppressWarnings("unchecked")
-    private void cacheData(int width, int height) {
+    private void cacheData(int width, int height)
+    {
         MeasuredData md = new MeasuredData();
         md.contentList = (ArrayList<LINE>) contentList.clone();
         md.textSize = this.getTextSize();
@@ -505,7 +561,8 @@ public class MTextView extends TextView {
         md.hashIndex = ++hashIndex;
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < contentList.size(); i++) {
+        for (int i = 0; i < contentList.size(); i++)
+        {
             LINE line = contentList.get(i);
             sb.append(line.toString());
         }
@@ -519,7 +576,8 @@ public class MTextView extends TextView {
      *
      * @param cs
      */
-    public void setMText(CharSequence cs) {
+    public void setMText(CharSequence cs)
+    {
         text = cs;
 
         obList.clear();
@@ -527,9 +585,11 @@ public class MTextView extends TextView {
         ArrayList<SpanObject> isList = new ArrayList<SpanObject>();
         useDefault = false;
 
-        if (cs instanceof Spannable) {
+        if (cs instanceof Spannable)
+        {
             CharacterStyle[] spans = ((Spannable) cs).getSpans(0, cs.length(), CharacterStyle.class);
-            for (int i = 0; i < spans.length; i++) {
+            for (int i = 0; i < spans.length; i++)
+            {
                 int s = ((Spannable) cs).getSpanStart(spans[i]);
                 int e = ((Spannable) cs).getSpanEnd(spans[i]);
                 SpanObject iS = new SpanObject();
@@ -546,36 +606,46 @@ public class MTextView extends TextView {
         isList.toArray(spanArray);
         Arrays.sort(spanArray, 0, spanArray.length, new SpanObjectComparator());
         isList.clear();
-        for (int i = 0; i < spanArray.length; i++) {
+        for (int i = 0; i < spanArray.length; i++)
+        {
             isList.add(spanArray[i]);
         }
 
         String str = cs.toString();
 
-        for (int i = 0, j = 0; i < cs.length(); ) {
-            if (j < isList.size()) {
+        for (int i = 0, j = 0; i < cs.length(); )
+        {
+            if (j < isList.size())
+            {
                 SpanObject is = isList.get(j);
-                if (i < is.start) {
+                if (i < is.start)
+                {
                     Integer cp = str.codePointAt(i);
                     //支持增补字符
-                    if (Character.isSupplementaryCodePoint(cp)) {
+                    if (Character.isSupplementaryCodePoint(cp))
+                    {
                         i += 2;
-                    } else {
+                    } else
+                    {
                         i++;
                     }
 
                     obList.add(new String(Character.toChars(cp)));
 
-                } else if (i >= is.start) {
+                } else if (i >= is.start)
+                {
                     obList.add(is);
                     j++;
                     i = is.end;
                 }
-            } else {
+            } else
+            {
                 Integer cp = str.codePointAt(i);
-                if (Character.isSupplementaryCodePoint(cp)) {
+                if (Character.isSupplementaryCodePoint(cp))
+                {
                     i += 2;
-                } else {
+                } else
+                {
                     i++;
                 }
 
@@ -586,9 +656,11 @@ public class MTextView extends TextView {
         requestLayout();
     }
 
-    public void setUseDefault(boolean useDefault) {
+    public void setUseDefault(boolean useDefault)
+    {
         this.useDefault = useDefault;
-        if (useDefault) {
+        if (useDefault)
+        {
             this.setText(text);
             this.setTextColor(textColor);
         }
@@ -599,12 +671,14 @@ public class MTextView extends TextView {
      *
      * @param lineSpacingDP 行距，单位dp
      */
-    public void setLineSpacingDP(int lineSpacingDP) {
+    public void setLineSpacingDP(int lineSpacingDP)
+    {
         this.lineSpacingDP = lineSpacingDP;
         lineSpacing = dip2px(context, lineSpacingDP);
     }
 
-    public void setParagraphSpacingDP(int paragraphSpacingDP) {
+    public void setParagraphSpacingDP(int paragraphSpacingDP)
+    {
         paragraphSpacing = dip2px(context, paragraphSpacingDP);
     }
 
@@ -613,7 +687,8 @@ public class MTextView extends TextView {
      *
      * @return 行距，单位dp
      */
-    public int getLineSpacingDP() {
+    public int getLineSpacingDP()
+    {
         return lineSpacingDP;
     }
 
@@ -623,7 +698,8 @@ public class MTextView extends TextView {
      * @2014年5月27日
      * @下午5:21:37
      */
-    class SpanObject {
+    class SpanObject
+    {
         public Object span;
         public int start;
         public int end;
@@ -636,9 +712,11 @@ public class MTextView extends TextView {
      * @2014年6月4日
      * @下午5:21:30
      */
-    class SpanObjectComparator implements Comparator<SpanObject> {
+    class SpanObjectComparator implements Comparator<SpanObject>
+    {
         @Override
-        public int compare(SpanObject lhs, SpanObject rhs) {
+        public int compare(SpanObject lhs, SpanObject rhs)
+        {
 
             return lhs.start - rhs.start;
         }
@@ -650,15 +728,18 @@ public class MTextView extends TextView {
      * @2014年5月27日
      * @下午5:22:12
      */
-    class LINE {
+    class LINE
+    {
         public ArrayList<Object> line = new ArrayList<Object>();
         public ArrayList<Integer> widthList = new ArrayList<Integer>();
         public float height;
 
         @Override
-        public String toString() {
+        public String toString()
+        {
             StringBuilder sb = new StringBuilder("height:" + height + "   ");
-            for (int i = 0; i < line.size(); i++) {
+            for (int i = 0; i < line.size(); i++)
+            {
                 sb.append(line.get(i) + ":" + widthList.get(i));
             }
             return sb.toString();
@@ -671,7 +752,8 @@ public class MTextView extends TextView {
      * @2014年5月27日
      * @下午5:22:25
      */
-    class MeasuredData {
+    class MeasuredData
+    {
         public int measuredHeight;
         public float textSize;
         public int width;

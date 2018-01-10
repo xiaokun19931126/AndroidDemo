@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.xiaokun.xiusou.demo6"
         minSdkVersion 17
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         // Enabling multidex support.
@@ -82,4 +82,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     //recyclerView 适配器
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.32'
+    //recyclerView 通用适配器
+    compile project(':adapter-library')
 }

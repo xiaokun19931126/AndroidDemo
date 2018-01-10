@@ -10,14 +10,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.xiaokun.adapter_library.BaseRecyclerAdapter;
 import com.xiaokun.http_library.RxHttpUtils;
 import com.xiaokun.http_library.observer.CommonObserver;
 import com.xiaokun.http_library.transformer.Transformer;
-import com.xiaokun.xiusou.demo6.Adapter.SearchViewAdapter;
 import com.xiaokun.xiusou.demo6.Bean.GankCategoryEntity;
 import com.xiaokun.xiusou.demo6.CustomView.OffsetDecoration;
 import com.xiaokun.xiusou.demo6.Network.GankService;
 import com.xiaokun.xiusou.demo6.R;
+import com.xiaokun.xiusou.demo6.holder.SearchViewHolder;
 import com.yuyh.library.Base.BaseActivity;
 
 import java.util.ArrayList;
@@ -37,7 +38,8 @@ public class SearchViewWithRvActivity extends BaseActivity
     @Bind(R.id.card_recycler_view)
     RecyclerView recyclerView;
     private List<GankCategoryEntity.ResultsBean> datas;
-    private SearchViewAdapter adapter;
+    //    private SearchViewAdapter adapter;
+    private BaseRecyclerAdapter adapter;
 
 
     @Override
@@ -72,7 +74,8 @@ public class SearchViewWithRvActivity extends BaseActivity
     private void initRecyclerView()
     {
         datas = new ArrayList<>();
-        adapter = new SearchViewAdapter(R.layout.item_search_view, datas);
+//        adapter = new SearchViewAdapter(R.layout.item_search_view, datas);
+        adapter = new BaseRecyclerAdapter(this);
         final int spacing = getResources().getDimensionPixelSize(R.dimen.dimen_2_dp);
         recyclerView.addItemDecoration(new OffsetDecoration(spacing));
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -101,7 +104,9 @@ public class SearchViewWithRvActivity extends BaseActivity
                             return;
                         }
                         datas = gankCategoryEntity.getResults();
-                        adapter.setNewData(datas);
+                        adapter.registerHolder(SearchViewHolder.class, datas);
+//                        recyclerView.setAdapter(adapter);
+//                        adapter.setNewData(datas);
                     }
                 });
     }
@@ -129,7 +134,7 @@ public class SearchViewWithRvActivity extends BaseActivity
             @Override
             public boolean onQueryTextChange(String newText)
             {
-                adapter.getFilter().filter(newText);
+//                adapter.getFilter().filter(newText);
                 return true;
             }
         });

@@ -1,5 +1,8 @@
 package com.xiaokun.xiusou.demo6.Bean;
 
+import com.xiaokun.adapter_library.BaseAdapterData;
+import com.xiaokun.xiusou.demo6.R;
+
 import java.util.List;
 
 /**
@@ -37,7 +40,7 @@ public class GankCategoryEntity
         this.results = results;
     }
 
-    public static class ResultsBean
+    public static class ResultsBean implements BaseAdapterData
     {
         /**
          * _id : 5976f07c421aa90ca3bb6b66
@@ -161,6 +164,12 @@ public class GankCategoryEntity
         public void setImages(List<String> images)
         {
             this.images = images;
+        }
+
+        @Override
+        public int getItemViewType()
+        {
+            return R.layout.item_search_view;
         }
     }
 }

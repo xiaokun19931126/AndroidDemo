@@ -19,7 +19,8 @@ import java.util.List;
  * Created by Administrator on 2016/12/24 0024.
  */
 
-public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
     private static final int TYPE_NO_DATA = 2;
@@ -28,43 +29,54 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private int mPage;
     private onItemClickListener mItemClickListener;
 
-    public interface onItemClickListener {
+    public interface onItemClickListener
+    {
         void onItemClick(View view, int position);
     }
 
-    public void setOnItemClickListener(onItemClickListener listener) {
+    public void setOnItemClickListener(onItemClickListener listener)
+    {
         this.mItemClickListener = listener;
     }
 
     public CollectionAdapter(Context context, List<CollectionData.CollectionDetail> list, int
-            page) {
+            page)
+    {
         mContext = context;
         mList = list;
         mPage = page;
     }
 
     @Override
-    public int getItemViewType(int position) {
-        if (position + 1 == getItemCount()) {
+    public int getItemViewType(int position)
+    {
+        if (position + 1 == getItemCount())
+        {
             KLog.d("position:" + position);
-            if ((mPage * 10) > mList.size()) {
+            if ((mPage * 10) > mList.size())
+            {
                 return TYPE_NO_DATA;
-            } else {
+            } else
+            {
                 return TYPE_FOOTER;
             }
-        } else {
+        } else
+        {
             return TYPE_ITEM;
         }
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_ITEM) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
+        if (viewType == TYPE_ITEM)
+        {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_collection, parent,
                     false);
 
             return new MyViewHolder(view);
-        } else if (viewType == TYPE_FOOTER) {
+        } else if (viewType == TYPE_FOOTER)
+        {
             KLog.d(viewType);
             View view;
             view = LayoutInflater.from(mContext).inflate(R.layout.item_foot, parent,
@@ -77,7 +89,8 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //                        false);
 //            }
             return new FootViewHolder(view);
-        } else if (viewType == TYPE_NO_DATA) {
+        } else if (viewType == TYPE_NO_DATA)
+        {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_foot1, parent,
                     false);
             return new FootViewHolder(view);
@@ -86,41 +99,50 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof MyViewHolder) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position)
+    {
+        if (holder instanceof MyViewHolder)
+        {
             final MyViewHolder myViewHolder = (MyViewHolder) holder;
             myViewHolder.title.setText(mList.get(position).getTitle());
             myViewHolder.jianjie.setText(mList.get(position).getJianjie());
             myViewHolder.addTime.setText(mList.get(position).getAddtime());
             PicassoUtil.loadImageViewHolder(mContext, mList.get(position).getImg(), myViewHolder
                     .imageView);
-            if (mItemClickListener != null) {
-                myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            if (mItemClickListener != null)
+            {
+                myViewHolder.itemView.setOnClickListener(new View.OnClickListener()
+                {
 
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
                         int pos = myViewHolder.getLayoutPosition();
                         mItemClickListener.onItemClick(myViewHolder.itemView, pos);
                     }
                 });
             }
-        } else if (holder instanceof FootViewHolder) {
+        } else if (holder instanceof FootViewHolder)
+        {
 
         }
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return mList.size() + 1;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder
+    {
         private ImageView imageView;
         private TextView title;
         private TextView jianjie;
         private TextView addTime;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView)
+        {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.imageview);
             title = (TextView) itemView.findViewById(R.id.title);
@@ -129,9 +151,11 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    class FootViewHolder extends RecyclerView.ViewHolder {
+    class FootViewHolder extends RecyclerView.ViewHolder
+    {
 
-        public FootViewHolder(View itemView) {
+        public FootViewHolder(View itemView)
+        {
             super(itemView);
         }
     }
