@@ -39,6 +39,11 @@ public class AppManager
         return instance;
     }
 
+    public Stack<Activity> getStack()
+    {
+        return activityStack;
+    }
+
     /**
      * 添加Activity到堆栈
      */
@@ -159,6 +164,7 @@ public class AppManager
     public void returnToActivity(Class<?> cls)
     {
         while (activityStack.size() != 0)
+        {
             if (activityStack.peek().getClass() == cls)
             {
                 break;
@@ -166,6 +172,7 @@ public class AppManager
             {
                 finishActivity(activityStack.peek());
             }
+        }
     }
 
 

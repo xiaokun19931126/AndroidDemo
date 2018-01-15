@@ -84,4 +84,5 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.32'
     //recyclerView 通用适配器
     compile project(':adapter-library')
+    compile 'com.eukaprotech.networking:networking:1.0.0@aar'
 }

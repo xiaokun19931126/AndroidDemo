@@ -3,11 +3,13 @@ package com.xiaokun.xiusou.demo6.Ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.xiaokun.xiusou.demo6.Activity.FirstActivity;
 import com.xiaokun.xiusou.demo6.R;
 import com.yuyh.library.Base.BaseActivity;
+import com.yuyh.library.utils.AppManager;
 
 import butterknife.Bind;
 
@@ -34,15 +36,18 @@ public class SplashActivity1 extends BaseActivity
         }
     };
 
+    @Override
     protected void onPause()
     {
         super.onPause();
         getWindow().getDecorView().removeCallbacks(this.mGotoMainRunnable);
     }
 
+    @Override
     protected void onResume()
     {
         super.onResume();
+        Log.e("SplashActivity1", "onResume(SplashActivity1.java:50)" + AppManager.getAppManager().getStack().size());
         getWindow().getDecorView().postDelayed(this.mGotoMainRunnable, this.mDelayTime);
     }
 

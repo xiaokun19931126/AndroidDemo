@@ -24,6 +24,7 @@ public class SplashActivity extends AppCompatActivity
         }
     };
 
+    @Override
     protected void onCreate(Bundle paramBundle)
     {
         super.onCreate(paramBundle);
@@ -34,12 +35,14 @@ public class SplashActivity extends AppCompatActivity
 //        }
     }
 
+    @Override
     protected void onPause()
     {
         super.onPause();
         getWindow().getDecorView().removeCallbacks(this.mGotoMainRunnable);
     }
 
+    @Override
     protected void onResume()
     {
         super.onResume();

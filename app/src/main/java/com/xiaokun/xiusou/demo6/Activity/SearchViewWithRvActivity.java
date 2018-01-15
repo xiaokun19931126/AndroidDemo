@@ -3,21 +3,28 @@ package com.xiaokun.xiusou.demo6.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.xiaokun.adapter_library.BaseAdapterData;
 import com.xiaokun.adapter_library.BaseRecyclerAdapter;
+import com.xiaokun.adapter_library.LoadingData;
 import com.xiaokun.http_library.RxHttpUtils;
 import com.xiaokun.http_library.observer.CommonObserver;
 import com.xiaokun.http_library.transformer.Transformer;
 import com.xiaokun.xiusou.demo6.Bean.GankCategoryEntity;
+import com.xiaokun.xiusou.demo6.Bean.HeadViewData;
 import com.xiaokun.xiusou.demo6.CustomView.OffsetDecoration;
 import com.xiaokun.xiusou.demo6.Network.GankService;
 import com.xiaokun.xiusou.demo6.R;
+import com.xiaokun.xiusou.demo6.holder.SearchHeadHolder;
 import com.xiaokun.xiusou.demo6.holder.SearchViewHolder;
 import com.yuyh.library.Base.BaseActivity;
 
@@ -79,21 +86,120 @@ public class SearchViewWithRvActivity extends BaseActivity
         final int spacing = getResources().getDimensionPixelSize(R.dimen.dimen_2_dp);
         recyclerView.addItemDecoration(new OffsetDecoration(spacing));
         LinearLayoutManager manager = new LinearLayoutManager(this);
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
+
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup()
+        {
+            @Override
+            public int getSpanSize(int position)
+            {
+                BaseAdapterData data = adapter.getData().get(position);
+                return data instanceof LoadingData || data instanceof HeadViewData ? gridLayoutManager.getSpanCount() : 1;
+            }
+        });
+
+        adapter.setOnLoadMoreListener(new BaseRecyclerAdapter.OnLoadMoreListener()
+        {
+            @Override
+            public void onLoadMore()
+            {
+                page++;
+                Log.e("SearchViewWith", "onLoadMore(SearchViewWithRvActivity.java:109)" + page);
+                if (page > 3)
+                {
+                    adapter.loadEnd();
+                } else
+                {
+                    loadData(page);
+                }
+            }
+        }, recyclerView);
         recyclerView.setAdapter(adapter);
     }
+
+    private int page = 1;
 
     @Override
     public void doBusiness(Context context)
     {
-        RxHttpUtils.createApi(GankService.class).getCategoryData("Android", 20, 1)
+        loadData(page);
+//        final String url = "https://webapi.bss.comlbs.com/api/AppVehicleData/GetUserPlatAll";
+//
+//        new Thread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                try
+//                {
+//                    URL mUrl = new URL(url);
+//                    HttpURLConnection conn = (HttpURLConnection) mUrl.openConnection();
+//                    conn.setRequestMethod("GET");
+//                    conn.setRequestProperty("Accept-Encoding", "gzip");
+//                    conn.setRequestProperty("token", "846AC1882D734268BCA62636FB18B9A3");
+//
+//                    int responseCode = conn.getResponseCode();
+//                    if (responseCode == HttpURLConnection.HTTP_OK)
+//                    {
+//                        String responseMessage = conn.getResponseMessage();
+//                        String contentEncoding = conn.getContentEncoding();
+//                        String encoding = conn.getHeaderField("Content-Encoding");
+//                        boolean gzipped = encoding != null && encoding.toLowerCase().contains("gzip");
+//                        InputStream in = conn.getInputStream();
+//                        if (!gzipped)
+//                        {
+//                            //un gzip
+//                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                            int len1;
+//                            byte[] buffer1 = new byte[1024];
+//                            while ((len1 = in.read(buffer1)) != -1)
+//                            {
+//                                byteArrayOutputStream.write(buffer1, 0, len1);
+//                            }
+//                            in.close();
+//                            byteArrayOutputStream.close();
+//                            final String str1 = new String(byteArrayOutputStream.toByteArray(), "utf-8");
+//                        } else
+//                        {
+//                            //do gzip
+//                            in = new GZIPInputStream(conn.getInputStream());
+//                            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+//                            int len;
+//                            byte[] buffer = new byte[1024];
+//                            while ((len = in.read(buffer)) != -1)
+//                            {
+//                                arrayOutputStream.write(buffer, 0, len);
+//                            }
+//                            in.close();
+//                            arrayOutputStream.close();
+//                            final String str = new String(arrayOutputStream.toByteArray(), "utf-8");
+//                        }
+//                    }
+//                } catch (MalformedURLException e)
+//                {
+//                    e.printStackTrace();
+//                } catch (IOException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+
+
+    }
+
+    private void loadData(final int page)
+    {
+        RxHttpUtils.createApi(GankService.class).getCategoryData("Android", 20, page)
                 .compose(Transformer.<GankCategoryEntity>switchSchedulers())
                 .subscribe(new CommonObserver<GankCategoryEntity>()
                 {
                     @Override
                     protected void onError(String errorMsg)
                     {
-
+                        adapter.loadFailed();
                     }
 
                     @Override
@@ -103,10 +209,13 @@ public class SearchViewWithRvActivity extends BaseActivity
                         {
                             return;
                         }
+
                         datas = gankCategoryEntity.getResults();
+                        if (page == 1)
+                        {
+                            adapter.registerHolder(SearchHeadHolder.class, new HeadViewData());
+                        }
                         adapter.registerHolder(SearchViewHolder.class, datas);
-//                        recyclerView.setAdapter(adapter);
-//                        adapter.setNewData(datas);
                     }
                 });
     }

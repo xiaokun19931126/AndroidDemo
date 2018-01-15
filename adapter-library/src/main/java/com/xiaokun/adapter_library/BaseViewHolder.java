@@ -62,5 +62,10 @@ public abstract class BaseViewHolder<T extends BaseAdapterData> extends Recycler
         //ButterKnife.bind(this,mItemView);
     }
 
+    public View getItemView()
+    {
+        return mItemView;
+    }
+
     public abstract void updateItem(T data, int position);
 }

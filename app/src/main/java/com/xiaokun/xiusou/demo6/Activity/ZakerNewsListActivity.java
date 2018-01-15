@@ -34,7 +34,8 @@ import okhttp3.Call;
  * Created by Administrator on 2016/10/27 0027.
  */
 
-public class ZakerNewsListActivity extends AppCompatActivity {
+public class ZakerNewsListActivity extends AppCompatActivity
+{
     private static final String TAG = "ZakerNewsListActivity";
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -47,18 +48,23 @@ public class ZakerNewsListActivity extends AppCompatActivity {
     int num = 10;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zaker_list);
         ButterKnife.bind(this);
 
         getNewsListData();
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
             @Override
-            public void onRefresh() {
-                handler.postDelayed(new Runnable() {
+            public void onRefresh()
+            {
+                handler.postDelayed(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         getNewsListData();
                     }
                 }, 1000);
@@ -70,21 +76,27 @@ public class ZakerNewsListActivity extends AppCompatActivity {
 
     Handler handler = new Handler();
 
-    private void getNewsListData() {
+    private void getNewsListData()
+    {
         OkHttpUtils.get().url("http://iphone.myzaker.com/zaker/article_telecom" +
-                ".php?app_id=660&for=xsunion").build().execute(new ZakerDataCallBack() {
+                ".php?app_id=660&for=xsunion").build().execute(new ZakerDataCallBack()
+        {
 
             @Override
-            public void onError(Call call, Exception e, int id) {
+            public void onError(Call call, Exception e, int id)
+            {
 
             }
 
             @Override
-            public void onResponse(ZakerData response, int id) {
+            public void onResponse(ZakerData response, int id)
+            {
                 list = response.getData().getList();
 
-                for (int i = list.size() - 1; i >= 0; i--) {
-                    if (list.get(i).getThumbnail_pic() == null) {
+                for (int i = list.size() - 1; i >= 0; i--)
+                {
+                    if (list.get(i).getThumbnail_pic() == null)
+                    {
                         list.remove(i);
                     }
                 }
@@ -94,9 +106,11 @@ public class ZakerNewsListActivity extends AppCompatActivity {
                         .this, list);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(zakerListAdapter);
-                zakerListAdapter.setOnItemClickListener(new ZakerListAdapter.onItemClickListener() {
+                zakerListAdapter.setOnItemClickListener(new ZakerListAdapter.onItemClickListener()
+                {
                     @Override
-                    public void onItemClick(View view, int position) {
+                    public void onItemClick(View view, int position)
+                    {
                         Log.d("xxxxxx", list.get(position).getUrl());
                         Intent intent = new Intent(ZakerNewsListActivity.this, ZakerNewsActivity
                                 .class);
@@ -106,38 +120,49 @@ public class ZakerNewsListActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+                {
 
                     @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+                    {
                         super.onScrolled(recyclerView, dx, dy);
                         int lastVisibleItemPosition = linearLayoutManager
                                 .findLastVisibleItemPosition();
-                        if (list.size() > zakerListAdapter.num) {
-                            if (lastVisibleItemPosition + 1 == zakerListAdapter.num) {
+                        if (list.size() > zakerListAdapter.num)
+                        {
+                            if (lastVisibleItemPosition + 1 == zakerListAdapter.num)
+                            {
 
                                 boolean isRefreshing = swipeRefreshLayout.isRefreshing();
-                                if (isRefreshing) {
+                                if (isRefreshing)
+                                {
                                     zakerListAdapter.notifyItemRemoved(zakerListAdapter
                                             .getItemCount());
                                     return;
                                 }
-                                if (!isLoading) {
+                                if (!isLoading)
+                                {
                                     isLoading = true;
-                                    handler.postDelayed(new Runnable() {
+                                    handler.postDelayed(new Runnable()
+                                    {
                                         @Override
-                                        public void run() {
+                                        public void run()
+                                        {
 //                                        zakerListAdapter.num += 10;
-                                            if (list.size() > (zakerListAdapter.num + 10)) {
+                                            if (list.size() > (zakerListAdapter.num + 10))
+                                            {
                                                 zakerListAdapter.num += 10;
                                                 Log.d("tag", "num:" + zakerListAdapter.num);
                                                 zakerListAdapter.notifyDataSetChanged();
                                             } else if (list.size() < (zakerListAdapter.num + 10) &&
-                                                    list.size() > zakerListAdapter.num) {
+                                                    list.size() > zakerListAdapter.num)
+                                            {
                                                 zakerListAdapter.num = list.size();
                                                 zakerListAdapter.notifyItemRemoved(zakerListAdapter
                                                         .getItemCount());
-                                            } else if (list.size() == zakerListAdapter.num) {
+                                            } else if (list.size() == zakerListAdapter.num)
+                                            {
                                                 zakerListAdapter.notifyItemRemoved(zakerListAdapter
                                                         .getItemCount());
                                                 Toast.makeText(ZakerNewsListActivity.this,
@@ -149,7 +174,8 @@ public class ZakerNewsListActivity extends AppCompatActivity {
                                     }, 1000);
                                 }
                             }
-                        } else if (list.size() == zakerListAdapter.num) {
+                        } else if (list.size() == zakerListAdapter.num)
+                        {
 
                         }
 
@@ -166,31 +192,38 @@ public class ZakerNewsListActivity extends AppCompatActivity {
     }
 
 
-    class MyAdapter extends BaseAdapter {
+    class MyAdapter extends BaseAdapter
+    {
 
         @Override
-        public int getCount() {
+        public int getCount()
+        {
             return list.size();
         }
 
         @Override
-        public Object getItem(int position) {
+        public Object getItem(int position)
+        {
             return list.get(position);
         }
 
         @Override
-        public long getItemId(int position) {
+        public long getItemId(int position)
+        {
             return position;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
             HoldView mHoler;
-            if (convertView == null) {
+            if (convertView == null)
+            {
                 convertView = View.inflate(getApplicationContext(), R.layout.item_zaker_list, null);
                 mHoler = new HoldView(convertView);
                 convertView.setTag(mHoler);
-            } else {
+            } else
+            {
                 mHoler = (HoldView) convertView.getTag();
             }
 
@@ -203,12 +236,14 @@ public class ZakerNewsListActivity extends AppCompatActivity {
             return convertView;
         }
 
-        class HoldView {
+        class HoldView
+        {
             TextView title;
             TextView content;
             ImageView imageView;
 
-            public HoldView(View view) {
+            public HoldView(View view)
+            {
                 this.title = (TextView) view.findViewById(R.id.title);
                 this.content = (TextView) view.findViewById(R.id.content);
                 this.imageView = (ImageView) view.findViewById(R.id.list_imageview);

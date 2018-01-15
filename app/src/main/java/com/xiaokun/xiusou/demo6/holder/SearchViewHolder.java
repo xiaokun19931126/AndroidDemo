@@ -1,5 +1,6 @@
 package com.xiaokun.xiusou.demo6.holder;
 
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
@@ -9,10 +10,15 @@ import com.xiaokun.adapter_library.BaseRecyclerAdapter;
 import com.xiaokun.adapter_library.BaseViewHolder;
 import com.xiaokun.xiusou.demo6.Bean.GankCategoryEntity;
 import com.xiaokun.xiusou.demo6.R;
+import com.xiaokun.xiusou.demo6.Ui.SplashActivity1;
+import com.yuyh.library.AppUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 /**
  * <pre>
@@ -68,6 +74,9 @@ public class SearchViewHolder extends BaseViewHolder<GankCategoryEntity.ResultsB
     @OnClick(R.id.home_cv)
     public void onViewClicked()
     {
-        Toast.makeText(mContext, "dianji", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "测试Application启动Activity", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(AppUtils.getAppContext(), SplashActivity1.class);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
+        AppUtils.getAppContext().startActivity(intent);
     }
 }

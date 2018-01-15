@@ -4,7 +4,7 @@ package com.xiaokun.adapter_library;
  * <pre>
  *     作者   : 肖坤
  *     时间   : 2018/01/10
- *     描述   : 实体类必须实现接口
+ *     描述   : 实体类必须实现接口,也是List<BaseAdapterData>泛型
  *     版本   : 1.0
  * </pre>
  */
