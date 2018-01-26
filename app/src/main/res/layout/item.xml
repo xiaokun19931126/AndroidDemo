@@ -5,7 +5,7 @@
                 android:background="@drawable/item_bg"
                 android:gravity="center">
 
-    <com.xiaokun.xiusou.demo6.CustomView.AdImageViewVersion
+    <com.xiaokun.xiusou.aidl.CustomView.AdImageViewVersion
         android:id="@+id/id_iv_ad"
         android:layout_width="match_parent"
         android:layout_height="180dp"

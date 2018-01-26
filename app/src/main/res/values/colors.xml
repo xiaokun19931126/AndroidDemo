@@ -17,6 +17,10 @@
     <color name="greyBackground">#FFCFCFCF</color>
     <color name="headcolor">#df1f44</color>
     <color name="tab_top_text_1">#272727</color>
+    <color name="color_3a62ac">#3a62ac</color>
 
+    <color name="color_6d737f">#6d737f</color>
+    <color name="color_edf0f4">#edf0f4</color>
+    <color name="color_3a3d44">#3a3d44</color>
 
 </resources>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.xiaokun.xiusou.demo6.CustomView.ListLinearLayout
+    <com.xiaokun.xiusou.aidl.CustomView.ListLinearLayout
         android:id="@+id/line_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dimen_20dp"/>
 
-        <com.xiaokun.xiusou.demo6.CustomView.MTextView
+        <com.xiaokun.xiusou.aidl.CustomView.MTextView
             android:id="@+id/text_view4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

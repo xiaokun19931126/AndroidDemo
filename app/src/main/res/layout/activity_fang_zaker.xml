@@ -20,7 +20,7 @@
         app:repeatCount="-1"
         app:startDelay="0"/>
 
-    <com.xiaokun.xiusou.demo6.CustomView.XKSwipeRefreshLayout
+    <com.xiaokun.xiusou.aidl.CustomView.XKSwipeRefreshLayout
         android:id="@+id/SwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,9 +31,9 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"/>-->
 
-        <com.xiaokun.xiusou.demo6.CustomView.CustomRecyclerView
+        <com.xiaokun.xiusou.aidl.CustomView.CustomRecyclerView
             android:id="@+id/fang_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </com.xiaokun.xiusou.demo6.CustomView.XKSwipeRefreshLayout>
+    </com.xiaokun.xiusou.aidl.CustomView.XKSwipeRefreshLayout>
 </LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/linear_layout_average"
+              android:background="@color/color_3a62ac">
+
+    <Button
+        android:id="@+id/check_car"
+        style="@style/function_textview_withmipmap"
+        android:background="?android:attr/selectableItemBackground"
+        android:drawableTop="@mipmap/adhibition_top_check_car"
+        android:text="@string/check_car"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/check_mock_point"
+        style="@style/function_textview_withmipmap"
+        android:drawableTop="@mipmap/adhibition_top_check_the_false"
+        android:text="@string/point_check_mock"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/case_function"
+        style="@style/function_textview_withmipmap"
+        android:drawableTop="@mipmap/adhibition_top_case"
+        android:text="@string/function_case"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/issue_case"
+        style="@style/function_textview_withmipmap"
+        android:drawableTop="@mipmap/adhibition_top_publish"
+        android:text="@string/issue_case"
+        android:textColor="@color/white"/>
+
+
+</LinearLayout>

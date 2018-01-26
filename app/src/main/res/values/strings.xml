@@ -6,6 +6,11 @@
     <string name="weather">天气</string>
     <string name="map">地图</string>
     <string name="fang">房产</string>
+    <string name="check_car">查车</string>
+    <string name="point_check_mock">卡点查伪</string>
+    <string name="function_case">案件</string>
+    <string name="issue_case">发布案件</string>
+    <string name="data_application">数据应用</string>
 
     <string-array name="citys">
         <item>武汉</item>

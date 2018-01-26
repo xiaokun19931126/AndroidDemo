@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.xiaokun.xiusou.demo6.CustomView.DoubleScrollView
+<com.xiaokun.xiusou.aidl.CustomView.DoubleScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutContent"
     android:layout_width="match_parent"
@@ -15,4 +15,4 @@
 
     </LinearLayout>
 
-</com.xiaokun.xiusou.demo6.CustomView.DoubleScrollView>
+</com.xiaokun.xiusou.aidl.CustomView.DoubleScrollView>

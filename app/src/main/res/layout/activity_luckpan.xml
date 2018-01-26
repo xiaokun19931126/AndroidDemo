@@ -5,7 +5,7 @@
                 android:layout_height="match_parent"
                 android:background="#ffffffff">
 
-    <com.xiaokun.xiusou.demo6.CustomView.LuckyPan
+    <com.xiaokun.xiusou.aidl.CustomView.LuckyPan
         android:id="@+id/id_luckypan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

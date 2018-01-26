@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.xiaokun.xiusou.demo6.FullListView.NestFullListView
+        <com.xiaokun.xiusou.aidl.FullListView.NestFullListView
             android:id="@+id/cstFullShowListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

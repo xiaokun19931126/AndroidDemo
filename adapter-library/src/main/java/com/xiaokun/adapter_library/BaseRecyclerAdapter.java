@@ -31,21 +31,32 @@ import static com.xiaokun.adapter_library.LoadingViewHolder.STATUS_LOADING;
 
 public class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
 {
+    // holder集合
     private SparseArray<Class<? extends BaseViewHolder>> typeHolders = new SparseArray();
+    //数据源
     private List<BaseAdapterData> mData = new ArrayList<>();
     private Context mContext;
     private LayoutInflater mInflater;
     private OnLoadMoreListener onLoadMoreListener;
     private RecyclerView mRecyclerView;
     private LoadingViewHolder loadingViewHolder;
+    //保证notifyDataSetChanged和bindView不冲突
+    private boolean onBind;
 
     public interface OnLoadMoreListener
     {
         void onLoadMore();
     }
 
+    /**
+     * 设置加载更多监听
+     *
+     * @param listener
+     * @param recyclerView
+     */
     public void setOnLoadMoreListener(OnLoadMoreListener listener, RecyclerView recyclerView)
     {
+        addLoadMoreData();
         typeHolders.put(LOAD_VIEW_ID, LoadingViewHolder.class);
         this.onLoadMoreListener = listener;
         if (getRecyclerView() == null)
@@ -58,7 +69,6 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
     {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        addLoadMoreData();
     }
 
 
@@ -124,7 +134,13 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
         {
             return;
         }
-        mData.addAll(mData.size() - 1, data);
+        if (onLoadMoreListener != null)
+        {
+            mData.addAll(mData.size() - 1, data);
+        } else
+        {
+            mData.addAll(data);
+        }
         notifyItemRangeInserted(mData.size() - data.size(), data.size());
     }
 
@@ -134,11 +150,16 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
         {
             return;
         }
-        mData.add(mData.size() - 1, data);
+        if (onLoadMoreListener != null)
+        {
+            mData.add(mData.size() - 1, data);
+        } else
+        {
+            mData.add(data);
+        }
         notifyItemRangeInserted(mData.size() - 1, 1);
     }
 
-    private boolean onBind;
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
